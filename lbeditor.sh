@@ -3,9 +3,10 @@ touch $1
 function save() {
     rm $1
     touch $1
-    for i in $1
+    for i in `ls`
     do
-        cat $i >> $1
+        NUM=$(( NUM + 1 ))
+        cat $NUM >> $1
     done
 }
 
@@ -24,8 +25,9 @@ cd lines
 echo "### Preparing lines..."
 for i in `cat $1`
 do
-touch $i
-head -n $i $1 | tail -n 1 > $i
+NUM=$(( NUM + 1 ))
+touch $NUM
+head -n $NUM $1 | tail -n 1 > $NUM
 done
 
 while true
@@ -34,11 +36,12 @@ echo "Which line do you want to edit? (type s to save and x to exit)"
 read LINE
 if [ $LINE = s ]
 then
-    save
+    save $1
 elif [ $LINE = x ]
 then
     leave
 else
+    touch $LINE
     echo "Current Line:"
     cat $LINE
     echo "Enter new line here."
