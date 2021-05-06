@@ -1,6 +1,7 @@
 touch $1
 
 function save() {
+    NUM=0
     rm $1
     touch $1
     for i in `ls`
